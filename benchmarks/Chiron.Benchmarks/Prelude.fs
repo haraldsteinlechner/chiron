@@ -27,6 +27,7 @@ let loadJsonResource name =
         thisAssembly.GetManifestResourceStream(name + ".json")
 
 let loadJsonResourceAsString name =
-    use stream = loadJsonResource name
+    printfn "loaindg: %s" name
+    use stream = loadJsonResource ("Chiron.Benchmarks." + name)
     use reader = new System.IO.StreamReader(stream)
     reader.ReadToEnd()

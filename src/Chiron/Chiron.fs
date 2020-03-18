@@ -10,7 +10,8 @@ type JsonMemberType =
 
 type [<StructuralEquality;NoComparison>] Json =
     | Object of properties: JsonObject
-    | Array of elements: Json list
+    | Array of elements: list<Json>
+    | FastArray of array<Json>
     | String of string
     | Number of number:string
     | True
@@ -18,6 +19,7 @@ type [<StructuralEquality;NoComparison>] Json =
     | Null
 
 and [<CustomEquality;NoComparison>] JsonObject =
+    | FastReadObject of System.Collections.Generic.IReadOnlyDictionary<string,Json>
     | WriteObject of propList: (string * Json) list
     | ReadObject of propList: (string * Json) list * propMap: Map<string,Json>
     override x.Equals(o) =
